@@ -1,0 +1,11 @@
+parserOptions:
+    sourceType: module
+
+env:
+    node: true
+
+rules:
+    semi: [2, "always"]
+
+extends:
+    "eslint:recommended"
