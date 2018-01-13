@@ -1,0 +1,28 @@
+{
+    "tree": {
+        "name": "core",
+        "children": [{
+            "features": [{
+                "name": "child1",
+                "children": []
+            }]
+        }, {
+            "features": [{
+                "name": "child2",
+                "children": []
+            }]
+        }, {
+            "features": [{
+                "name": "child3",
+                "children": []
+            }]
+        }]
+    },
+    "crossTreeConstraints": [{
+        "type": "require",
+        "features": ["child1", "child2"]
+    }, {
+        "type": "exclude",
+        "features": ["child2", "child3"]
+    }]
+}
