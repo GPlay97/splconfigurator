@@ -142,6 +142,14 @@ export default function Model(rootName) {
         return selectFeature(featureName, "Negative");
     };
 
+    this.selectionOf = function (featurename) {
+        var feature = nameMap[featureName];
+        if (!feature) {
+            throw "unknown feature " + featureName;
+        }
+        return feature.selection;
+    }
+
     function selectFeature(featureName, type) {
         var feature = nameMap[featureName];
         if (!feature) {

@@ -17,5 +17,5 @@ function onNegativeSelection(feature, callStack) {
 }
 
 export default function ExclusiveChildGroup(parent) {
-    return new ChildGroup(parent, onParentPositiveSelection, onPositiveSelection, onNegativeSelection);
+    return new ChildGroup("exclusive", parent, onParentPositiveSelection, onPositiveSelection, onNegativeSelection);
 }

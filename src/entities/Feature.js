@@ -15,7 +15,7 @@ Feature.prototype.selectPositive = function (reason, callStack, invoker) {
     if (this.selection === true)
         return callStack;
     if (this.selection === false)
-        throw new FeatureError("invalid positive selection", this, callStack);
+        throw new FeatureError("invalid positive selection", this, reason, callStack);
     callStack.push(this, this.selection, true, reason, invoker);
 
     this.selection = true;
@@ -38,7 +38,7 @@ Feature.prototype.selectNegative = function (reason, callStack, invoker) {
     if (this.selection === false)
         return callStack;
     if (this.selection === true)
-        throw new FeatureError("invalid negative selection", this, callStack);
+        throw new FeatureError("invalid negative selection", this, reason, callStack);
     callStack.push(this, this.selection, false, reason, invoker);
 
     this.selection = false;

@@ -39,7 +39,7 @@ function deserializeModel(json) {
 
 function deserializeFeature(json, model, parent, childType) {
     if (model) {
-        model.addFeature(parent, json.name, childType);
+        model.addFeature(parent, json.name, childType, json.implicit);
     } else {
         model = new Model(json.name);
     }
@@ -53,9 +53,7 @@ function deserializeFeature(json, model, parent, childType) {
 
 function serializeConfiguration(feature, currentConfig) {
     currentConfig = currentConfig || {};
-    if (typeof feature.selection !== "undefined") {
-        currentConfig[feature.name] = feature.selection;
-    }
+    currentConfig[feature.name] = feature.selection;
     feature.children.forEach(cg => cg.features.forEach(f => serializeConfiguration(f, currentConfig)));
     return currentConfig;
 }

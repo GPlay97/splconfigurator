@@ -11,20 +11,18 @@ ChildGroup.prototype.selectLast = function (reason, callStack, invoker) {
     var unselected = this.features.length;
     this.features.reduce((acc, feature) => {
         if (acc) return acc;
-        if (feature.selected === true) {
+        if (--unselected === 0) {
+            return feature.selectPositive(reason, callStack, invoker);
+        } else if (feature.selected !== false) {
             return invoker;
-        } else {
-            if (--unselected === 1) {
-                return feature.selectPositive(reason, callStack, invoker);
-            }
         }
     }, false);
 };
 
 ChildGroup.prototype.selectAllPositive = function (reason, callStack, invoker) {
-    this.features.forEach(f => f.selectPositive(reason, callStack, invoker));
+    this.features.forEach(f => f !== invoker ? f.selectPositive(reason, callStack, invoker) : false);
 };
 
 ChildGroup.prototype.selectAllNegative = function (reason, callStack, invoker) {
-    this.features.forEach(f => f.selectNegative(reason, callStack, invoker));
+    this.features.forEach(f => f !== invoker ? f.selectNegative(reason, callStack, invoker) : false);
 };
