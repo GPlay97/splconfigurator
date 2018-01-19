@@ -13,7 +13,7 @@ ChildGroup.prototype.selectLast = function (reason, callStack, invoker) {
         if (acc) return acc;
         if (--unselected === 0) {
             return feature.selectPositive(reason, callStack, invoker);
-        } else if (feature.selected !== false) {
+        } else if (feature.selection !== false) {
             return invoker;
         }
     }, false);

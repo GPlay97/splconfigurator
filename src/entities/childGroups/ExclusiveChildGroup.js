@@ -11,7 +11,7 @@ function onPositiveSelection(feature, callStack) {
 function onNegativeSelection(feature, callStack) {
     if (this.parent.selection === true) {
         this.selectLast("last child in exclusive group", callStack, feature);
-    } else if (!this.features.reduce((acc, f) => acc || f.selection, false)) {
+    } else if (this.features.reduce((acc, f) => acc && (f.selection === false), true)) {
         this.parent.selectNegative("exclusive child group completely deselected", callStack, feature);
     }
 }
