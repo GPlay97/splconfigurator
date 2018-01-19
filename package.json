@@ -1,9 +1,11 @@
 {
   "name": "splconfigurator",
   "version": "0.0.1",
-  "description": "",
-  "main": "src/index.js",
+  "main": "target/splconfigurator.cjs.js",
+  "module": "target/splconfigurator.es.js",
+  "jsnext:main": "target/splconfigurator.es.js",
   "scripts": {
+    "prepare": "rollup -c",
     "test": "babel-tape-runner 'test/**/*Test.js'",
     "coverage": "babel-node -- ./node_modules/istanbul/lib/cli cover --include-all-sources true -x \"target/*\" -x \"src/index.js\" -x \"rollup.config.js\" node_modules/tape/bin/tape './test/**/*Test.js' ${ISTANBUL_EXTRA}",
     "checkstyle": "eslint 'src/**/*.js' 'test/**/*.js'"
@@ -21,5 +23,21 @@
     "istanbul": "1.1.0-alpha.1",
     "sinon": "4.1.4",
     "tape": "4.8.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/125m125/splconfigurator.git"
+  },
+  "keywords": [
+    "software-product-line",
+    "spl"
+  ],
+  "bugs": {
+    "url": "https://github.com/125m125/splconfigurator/issues"
+  },
+  "homepage": "https://github.com/125m125/splconfigurator#readme",
+  "description": ""
 }
