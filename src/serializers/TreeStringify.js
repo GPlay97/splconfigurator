@@ -1,26 +1,29 @@
 import Serializer from "./Serializer";
 
-function serializeModel(feature) {
-    return this.printTree("", "")(feature, 0, root, false);
+function serializeModel(feature, options) {
+    return this.printTree("", "")(feature, 0, "root", false);
 }
 
-function deserializeModel(json) {
+function deserializeModel() {
     throw "TreeStringify can not deserialite configurations";
 }
 
-function serializeConfiguration(feature, currentConfig) {
-    return this.printTree(this.selectedPositivePrefix, this.selectedNegativePrefix)(feature, 0, root, false);
+function serializeConfiguration(feature, options) {
+    return this.printTree(this.selectedPositivePrefix, this.selectedNegativePrefix, options ? options.highlight : options)(feature, 0, "root", false);
 }
 
-function deserializeConfiguration(model, json) {
+function deserializeConfiguration() {
     throw "TreeStringify can not deserialite configurations";
 }
 
-function printTree(selectedPositivePrefix, selectedNegativePrefix) {
+function printTree(selectedPositivePrefix, selectedNegativePrefix, highlight) {
     var self = this;
 
     function printFeature(feature, indent, type, last) {
         var line = self.lineStart;
+        console.log(feature.name, highlight, feature.name === highlight)
+        if (feature.name === highlight)
+            line += self.highlight;
         if (feature.selection === true) {
             line += selectedPositivePrefix;
         } else if (feature.selection === false) {
@@ -52,6 +55,9 @@ function printTree(selectedPositivePrefix, selectedNegativePrefix) {
 
 export default function TreeStringify(settings) {
     var serializer = new Serializer(serializeModel, deserializeModel, serializeConfiguration, deserializeConfiguration);
+    settings = settings || {
+        color: true,
+    };
     serializer.printTree = printTree;
     serializer.lineStart = settings.lineStart || " ";
     serializer.lineEnd = settings.lineEnd || "\r\n" + (settings.color ? "\x1b[0m" : "");
@@ -70,5 +76,6 @@ export default function TreeStringify(settings) {
         "mandatoryl": settings.mandatoryl || "\u2514\u2B24 ",
         "root": settings.root || "",
     }
+    serializer.highlight = settings.highlight || (settings.color ? "\x1b[1m" : "")
     return serializer;
 }

@@ -19,6 +19,7 @@ export default function Model(rootName) {
     var nameMap = {};
     var features = [root, ];
     var selectionStarted = false;
+    var changes = [];
 
     nameMap[rootName] = root;
 
@@ -26,11 +27,16 @@ export default function Model(rootName) {
     this.nameMap = nameMap;
     this.features = features;
     this.root = root;
+    this.changes = changes;
     //? }
 
     this.selectionStarted = function () {
         return selectionStarted;
     };
+
+    this.getFeaturenames = function () {
+        return features.map(f => f.name);
+    }
 
     this.addFeature = function (parentName, childName, groupType) {
         if (selectionStarted) {
@@ -134,29 +140,34 @@ export default function Model(rootName) {
         //? }
     };
 
-    this.selectFeaturePositive = function (featureName) {
-        return selectFeature(featureName, "Positive");
+    this.selectFeaturePositive = function (featurename) {
+        return selectFeature(featurename, true);
     };
 
-    this.selectFeatureNegative = function (featureName) {
-        return selectFeature(featureName, "Negative");
+    this.selectFeatureNegative = function (featurename) {
+        return selectFeature(featurename, false);
     };
 
     this.selectionOf = function (featurename) {
-        var feature = nameMap[featureName];
+        var feature = nameMap[featurename];
         if (!feature) {
-            throw "unknown feature " + featureName;
+            throw "unknown feature " + featurename;
         }
         return feature.selection;
     }
 
-    function selectFeature(featureName, type) {
-        var feature = nameMap[featureName];
+    function selectFeature(featurename, type) {
+        var feature = nameMap[featurename];
         if (!feature) {
-            throw "unable to select feature: unknown feature " + featureName;
+            throw "unable to select feature: unknown feature " + featurename;
         }
         try {
-            var result = feature["select" + type]("user selected");
+            var result;
+            if (type)
+                result = feature.selectPositive("user selected");
+            else
+                result = feature.selectNegative("user selected");
+            changes.push(result);
             //? if(RETURN_INNERTS) {
             return result;
             //? }
@@ -167,9 +178,7 @@ export default function Model(rootName) {
             //? }
         } catch (e) {
             if (e instanceof FeatureError) {
-                //? if (FORCE_VALID) {
                 e.stack.revert();
-                //? }
 
                 //? if (RETURN_INNERTS) {
                 throw e;
@@ -183,15 +192,22 @@ export default function Model(rootName) {
         }
     }
 
-    this.serializeModel = function (serializer) {
-        return serializer.serializeModel(root);
+    this.serializeModel = function (serializer, options) {
+        return serializer.serializeModel(root, options);
     };
 
-    this.serializeConfiguration = function (serializer) {
-        return serializer.serializeConfiguration(root);
+    this.serializeConfiguration = function (serializer, options) {
+        return serializer.serializeConfiguration(root, options);
     };
 
-    this.deserializeConfiguration = function (serializer, configuration) {
-        return serializer.deserializeConfiguration(this, configuration);
+    this.deserializeConfiguration = function (serializer, configuration, options) {
+        return serializer.deserializeConfiguration(this, configuration, options);
     };
+
+    this.revertLastSelection = function () {
+        if (!changes.length) throw "nothing to revert";
+        var lastChange = changes.pop();
+        lastChange.revert();
+        if (!changes.length) selectionStarted = false;
+    }
 }

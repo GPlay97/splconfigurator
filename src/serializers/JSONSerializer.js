@@ -1,5 +1,5 @@
 import Serializer from "./Serializer";
-import Model from "./Model";
+import Model from "../model/Model";
 
 function serializeModel(feature) {
     var crossTreeConstraints = [];
@@ -51,7 +51,11 @@ function deserializeFeature(json, model, parent, childType) {
     return model;
 }
 
-function serializeConfiguration(feature, currentConfig) {
+function serializeConfiguration(feature) {
+    return serializeConfigurationR(feature);
+}
+
+function serializeConfigurationR(feature, currentConfig) {
     currentConfig = currentConfig || {};
     currentConfig[feature.name] = feature.selection;
     feature.children.forEach(cg => cg.features.forEach(f => serializeConfiguration(f, currentConfig)));
