@@ -12,7 +12,7 @@ export default function Configurator(model, featurenames, getConfiguration, inva
             }
             self.next(-1, innerResolve, reject);
         });
-    }
+    };
 
     this.next = function (index, resolve, reject) {
         if (!resolve) {
@@ -32,7 +32,7 @@ export default function Configurator(model, featurenames, getConfiguration, inva
         } else {
             apply(index, resolve, reject)(result);
         }
-    }
+    };
 
     function apply(index, resolve, reject) {
         return function (state) {
@@ -63,7 +63,7 @@ export default function Configurator(model, featurenames, getConfiguration, inva
                         index: index,
                     });
             }
-        }
+        };
     }
 
     function findNext(index, resolve, reject) {
@@ -83,7 +83,7 @@ export default function Configurator(model, featurenames, getConfiguration, inva
     }
 
     function select(index, state, resolve, reject) {
-        console.log(featurenames, index)
+        console.log(featurenames, index);
         try {
             if (state === Configurator.prototype.POSITIVE) {
                 model.selectFeaturePositive(featurenames[index]);

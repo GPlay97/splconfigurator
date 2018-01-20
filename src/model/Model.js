@@ -36,7 +36,7 @@ export default function Model(rootName) {
 
     this.getFeaturenames = function () {
         return features.map(f => f.name);
-    }
+    };
 
     this.addFeature = function (parentName, childName, groupType) {
         if (selectionStarted) {
@@ -154,7 +154,7 @@ export default function Model(rootName) {
             throw "unknown feature " + featurename;
         }
         return feature.selection;
-    }
+    };
 
     function selectFeature(featurename, type) {
         var feature = nameMap[featurename];
@@ -209,5 +209,5 @@ export default function Model(rootName) {
         var lastChange = changes.pop();
         lastChange.revert();
         if (!changes.length) selectionStarted = false;
-    }
+    };
 }

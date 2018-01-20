@@ -15,7 +15,14 @@
             "imports": "never",
             "exports": "never",
             "functions": "ignore"
+        }],
+        "quotes": [2, "double", {
+            "avoidEscape": true,
+            "allowTemplateLiterals": true
         }]
     },
-    "extends": "eslint:recommended"
+    "extends": "eslint:recommended",
+    "globals": {
+        "Promise": true
+    }
 }

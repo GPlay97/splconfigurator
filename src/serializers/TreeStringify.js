@@ -21,15 +21,15 @@ function printTree(selectedPositivePrefix, selectedNegativePrefix, highlight) {
 
     function printFeature(feature, indent, type, last) {
         var line = self.lineStart;
-        console.log(feature.name, highlight, feature.name === highlight)
+        console.log(feature.name, highlight, feature.name === highlight);
         if (feature.name === highlight)
             line += self.highlight;
         if (feature.selection === true) {
             line += selectedPositivePrefix;
         } else if (feature.selection === false) {
-            line += selectedNegativePrefix
+            line += selectedNegativePrefix;
         } else {
-            line += self.unselectedPrefix
+            line += self.unselectedPrefix;
         }
         line += Array(indent + 1).join(self.indentChar);
         line += self.typeChars[type + (last ? "l" : "")];
@@ -41,12 +41,12 @@ function printTree(selectedPositivePrefix, selectedNegativePrefix, highlight) {
         if (requireString)
             line += "requires: " + requireString;
         if (requireString && excludeString)
-            line += " and "
+            line += " and ";
         if (excludeString)
             line += "excludes: " + excludeString;
         if (requireString || excludeString)
-            line += ")"
-        line += self.lineEnd
+            line += ")";
+        line += self.lineEnd;
         line += feature.children.reduce((acc, cg) => acc + cg.features.reduce((acc, f, i) => acc + printFeature(f, indent + 1, cg.type, i === cg.features.length - 1), ""), "");
         return line;
     }
@@ -75,7 +75,7 @@ export default function TreeStringify(settings) {
         "mandatory": settings.mandatory || "\u251C\u2B24 ",
         "mandatoryl": settings.mandatoryl || "\u2514\u2B24 ",
         "root": settings.root || "",
-    }
-    serializer.highlight = settings.highlight || (settings.color ? "\x1b[1m" : "")
+    };
+    serializer.highlight = settings.highlight || (settings.color ? "\x1b[1m" : "");
     return serializer;
 }

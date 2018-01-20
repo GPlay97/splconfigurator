@@ -9,38 +9,38 @@ function getConfiguration(featurename, model) {
         highlight: featurename,
     }));
     return inquirer.prompt([{
-        type: 'expand',
-        message: 'Include feature ' + featurename + '?',
-        name: 'result',
+        type: "expand",
+        message: "Include feature " + featurename + "?",
+        name: "result",
         choices: [{
-                key: 'y',
-                name: 'Yes',
+                key: "y",
+                name: "Yes",
                 value: Configurator.prototype.POSITIVE,
             },
             {
-                key: 'n',
-                name: 'No',
+                key: "n",
+                name: "No",
                 value: Configurator.prototype.NEGATIVE,
             },
             {
-                key: 's',
-                name: 'Skip',
+                key: "s",
+                name: "Skip",
                 value: Configurator.prototype.SKIP,
             },
             new inquirer.Separator(),
             {
-                key: 'u',
-                name: 'Undo last selection',
+                key: "u",
+                name: "Undo last selection",
                 value: Configurator.prototype.UNDO,
             },
             {
-                key: 'c',
-                name: 'Abort selection process',
+                key: "c",
+                name: "Abort selection process",
                 value: Configurator.prototype.CANCEL,
             },
         ],
-        default: 'y',
-    }]);
+        default: "y",
+    },]);
 }
 
 export default function InquirerConfigurator(model, featurenames) {

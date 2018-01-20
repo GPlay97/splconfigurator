@@ -9,5 +9,5 @@ function onPositiveSelection(feature, callStack) {
 }
 
 export default function ExcludeConstraint(feature1, feature2) {
-    return new CrossTreeConstraint("exclude", [feature1, feature2], onPositiveSelection, onNegativeSelection);
+    return new CrossTreeConstraint("exclude", [feature1, feature2,], onPositiveSelection, onNegativeSelection);
 }

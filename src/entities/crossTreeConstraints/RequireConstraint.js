@@ -14,5 +14,5 @@ function onNegativeSelection(feature, callStack) {
 
 export default function RequireConstraint(source, target) {
 
-    return new CrossTreeConstraint("require", [source, target], onPositiveSelection, onNegativeSelection);
+    return new CrossTreeConstraint("require", [source, target,], onPositiveSelection, onNegativeSelection);
 }
