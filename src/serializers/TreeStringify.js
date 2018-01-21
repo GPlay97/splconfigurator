@@ -21,7 +21,6 @@ function printTree(selectedPositivePrefix, selectedNegativePrefix, highlight) {
 
     function printFeature(feature, indent, type, last) {
         var line = self.lineStart;
-        console.log(feature.name, highlight, feature.name === highlight);
         if (feature.name === highlight)
             line += self.highlight;
         if (feature.selection === true) {

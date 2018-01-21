@@ -9,8 +9,8 @@ function solve(model, featurenames, index, preference) {
 
 function trySolve(model, featurenames, index, value) {
     try {
-        model.selectFeature(featurenames[index], preference);
-        if (!solve(model, featurenames, index + 1, preference)) {
+        model.selectFeature(featurenames[index], value);
+        if (!solve(model, featurenames, index + 1, value)) {
             model.revertLastSelection();
             return false;
         }
@@ -21,5 +21,5 @@ function trySolve(model, featurenames, index, value) {
 }
 
 export default function AutoConfigurator(model, preference) {
-    this.solve = (featurenames) => solve(model, featurenames || model.featurenames, 0);
+    this.solve = (featurenames) => solve(model, featurenames || model.featurenames, 0, preference);
 }

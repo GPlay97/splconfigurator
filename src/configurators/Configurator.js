@@ -38,25 +38,24 @@ export default function Configurator(model, featurenames, getConfiguration, inva
         return function (state) {
             if (typeof state === "object")
                 state = state.result;
-            console.log(state);
             switch (state) {
-                case Configurator.prototype.POSITIVE:
-                case Configurator.prototype.NEGATIVE:
+                case Configurator.POSITIVE:
+                case Configurator.NEGATIVE:
                     return select(index, state, resolve, reject);
-                case Configurator.prototype.SKIP:
+                case Configurator.SKIP:
                     return resolve({
                         completed: false,
                         cancelled: false,
                         index: index,
                     });
-                case Configurator.prototype.UNDO:
+                case Configurator.UNDO:
                     model.revertLastSelection();
                     return resolve({
                         completed: false,
                         cancelled: false,
                         index: index,
                     });
-                case Configurator.prototype.CANCEL:
+                case Configurator.CANCEL:
                     return resolve({
                         completed: false,
                         cancelled: true,
@@ -83,9 +82,8 @@ export default function Configurator(model, featurenames, getConfiguration, inva
     }
 
     function select(index, state, resolve, reject) {
-        console.log(featurenames, index);
         try {
-            if (state === Configurator.prototype.POSITIVE) {
+            if (state === Configurator.POSITIVE) {
                 model.selectFeaturePositive(featurenames[index]);
             } else {
                 model.selectFeatureNegative(featurenames[index]);
@@ -96,9 +94,9 @@ export default function Configurator(model, featurenames, getConfiguration, inva
                 index: index,
             });
         } catch (e) {
-            if (invalidBehavior === Configurator.prototype.SELECT_OPPOSITE_ON_INVALID) {
+            if (invalidBehavior === Configurator.SELECT_OPPOSITE_ON_INVALID) {
                 try {
-                    if (state === Configurator.prototype.POSITIVE) {
+                    if (state === Configurator.POSITIVE) {
                         model.selectFeatureNegative(featurenames[index]);
                     } else {
                         model.selectFeaturePositive(featurenames[index]);
@@ -118,11 +116,11 @@ export default function Configurator(model, featurenames, getConfiguration, inva
     }
 }
 
-Configurator.prototype.POSITIVE = 1;
-Configurator.prototype.NEGATIVE = -1;
-Configurator.prototype.SKIP = 0;
-Configurator.prototype.UNDO = 2;
-Configurator.prototype.CANCEL = -2;
+Configurator.POSITIVE = 1;
+Configurator.NEGATIVE = -1;
+Configurator.SKIP = 0;
+Configurator.UNDO = 2;
+Configurator.CANCEL = -2;
 
-Configurator.prototype.REJECT_ON_INVALID = 0;
-Configurator.prototype.SELECT_OPPOSITE_ON_INVALID = 1;
+Configurator.REJECT_ON_INVALID = 0;
+Configurator.SELECT_OPPOSITE_ON_INVALID = 1;

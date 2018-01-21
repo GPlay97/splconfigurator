@@ -35,3 +35,23 @@ export {default as JSONSerializer} from "./serializers/JSONSerializer";
 export {default as TreeStringify} from "./serializers/TreeStringify";
 //? } 
 //? }
+
+//? if (BUILDERS) {
+//? if (INQUIRER_BUILDER) {
+export {default as InquirerBuilder} from "./builders/InquirerBuilder";
+//? }
+//? }
+
+//? if (CLI) {
+import cliBuild from "./cli/cliBuild";
+if (process.mainModule === module) {
+    var action = process.argv[2];
+    switch(action) {
+    case "build":
+        cliBuild(process.argv[3]);
+        break;
+    default:
+        console.log("Known operations: build");
+    }
+}
+//? }
