@@ -13,18 +13,18 @@
   "author": "125m125",
   "license": "MIT",
   "dependencies": {
-    "inquirer": "5.0.0",
-    "inquirer-autocomplete-prompt": "^0.12.1"
+    "inquirer": "5.0.1",
+    "inquirer-autocomplete-prompt": "0.12.1"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-preset-env": "1.6.1",
     "babel-tape-runner": "2.0.1",
-    "eslint": "4.15.0",
-    "inquirer-path": "^1.0.0-beta5",
+    "eslint": "4.16.0",
+    "inquirer-path": "1.0.0-beta5",
     "istanbul": "1.1.0-alpha.1",
     "rollup": "0.54.1",
-    "sinon": "4.1.4",
+    "sinon": "4.1.6",
     "tape": "4.8.0"
   },
   "directories": {
