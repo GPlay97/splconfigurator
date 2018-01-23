@@ -1,17 +1,19 @@
 import inquirer from "inquirer";
 import inquirer_autocomplete_prompt from "inquirer-autocomplete-prompt";
-import {
-    PathPrompt
-} from "inquirer-path";
 import Model from "../model/Model";
 import TreeStringify from "../serializers/TreeStringify";
 //? if (FILE_SYSTEM) {
 import fs from "fs";
 import JSONSerializer from "../serializers/JSONSerializer";
+import {
+    PathPrompt
+} from "inquirer-path";
 //?}
 
 inquirer.registerPrompt("autocomplete", inquirer_autocomplete_prompt);
+//? if (FILE_SYSTEM) {
 inquirer.registerPrompt("path", PathPrompt);
+//? }
 
 var treeStringify = new TreeStringify();
 
@@ -24,9 +26,6 @@ export default function InquirerBuilder(model
         model = new Model(model);
     }
     //? if (FILE_SYSTEM){
-    if (typeof askStore === "undefined") {
-        askStore = true;
-    }
     this.askStore = askStore;
     //? }
 

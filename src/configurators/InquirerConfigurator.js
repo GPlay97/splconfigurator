@@ -15,34 +15,38 @@ function getConfiguration(featurename, model) {
         choices: [{
                 key: "y",
                 name: "Yes",
-                value: Configurator.prototype.POSITIVE,
+                value: Configurator.POSITIVE,
             },
             {
                 key: "n",
                 name: "No",
-                value: Configurator.prototype.NEGATIVE,
+                value: Configurator.NEGATIVE,
             },
             {
                 key: "s",
                 name: "Skip",
-                value: Configurator.prototype.SKIP,
+                value: Configurator.SKIP,
             },
             new inquirer.Separator(),
             {
                 key: "u",
                 name: "Undo last selection",
-                value: Configurator.prototype.UNDO,
+                value: Configurator.UNDO,
             },
             {
                 key: "c",
                 name: "Abort selection process",
-                value: Configurator.prototype.CANCEL,
+                value: Configurator.CANCEL,
             },
         ],
         default: "y",
-    },]);
+    }, ]);
 }
 
-export default function InquirerConfigurator(model, featurenames) {
-    return new Configurator(model, featurenames || model.getFeaturenames(), getConfiguration, Configurator.prototype.SELECT_OPPOSITE_ON_INVALID);
+export default function InquirerConfigurator(model, featurenames
+    //? if (FILE_SYSTEM){
+    , askStore
+    //? }
+) {
+    return new Configurator(model, featurenames || model.getFeaturenames(), getConfiguration, Configurator.prototype.SELECT_OPPOSITE_ON_INVALID, askStore);
 }

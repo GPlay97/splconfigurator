@@ -1,6 +1,22 @@
 import FeatureSelectionStack from "../entities/FeatureSelectionStack";
+//? if (FILE_SYSTEM) {
+import fs from "fs";
+import inquirer from "inquirer";
+import {
+    PathPrompt
+} from "inquirer-path";
+import JSONSerializer from "../serializers/JSONSerializer";
+//? }
 
-export default function Configurator(model, featurenames, getConfiguration, invalidBehavior) {
+//? if (FILE_SYSTEM) {
+inquirer.registerPrompt("path", PathPrompt);
+//? }
+
+export default function Configurator(model, featurenames, getConfiguration, invalidBehavior
+    //? if (FILE_SYSTEM){
+    , askStore
+    //? }
+) {
     this.start = function () {
         var self = this;
         return new Promise(function (resolve, reject) {
@@ -8,6 +24,21 @@ export default function Configurator(model, featurenames, getConfiguration, inva
                 if (!data.completed && !data.cancelled) {
                     return self.next(data.index, innerResolve, reject);
                 }
+                //? if (FILE_SYSTEM) {
+                if (askStore) {
+                    data.storePromise = new Promise(function (resolve) {
+                        inquirer.prompt([{
+                            type: "path",
+                            name: "path",
+                            message: "Enter a path",
+                            default: process.cwd(),
+                        }, ]).then(data2 => {
+                            fs.writeFileSync(data2.path, JSON.stringify(model.serializeConfiguration(new JSONSerializer())), "utf8");
+                            resolve(true);
+                        });
+                    });
+                }
+                //? }
                 resolve(data);
             }
             self.next(-1, innerResolve, reject);
@@ -16,7 +47,7 @@ export default function Configurator(model, featurenames, getConfiguration, inva
 
     this.next = function (index, resolve, reject) {
         if (!resolve) {
-            return new Promise((rs, rj) => next(index, rs, rj));
+            return new Promise((rs, rj) => this.next(index, rs, rj));
         }
         index = findNext(index);
         if (index === -1) {

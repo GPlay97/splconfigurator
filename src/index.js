@@ -44,14 +44,18 @@ export {default as InquirerBuilder} from "./builders/InquirerBuilder";
 
 //? if (CLI) {
 import cliBuild from "./cli/cliBuild";
+import cliConfigure from "./cli/cliConfigure";
 if (process.mainModule === module) {
     var action = process.argv[2];
     switch(action) {
     case "build":
         cliBuild(process.argv[3]);
         break;
+    case "configure":
+        cliConfigure(process.argv[3], process.argv[4]);
+        break;
     default:
-        console.log("Known operations: build");
+        console.log("Known operations: build, configure");
     }
 }
 //? }
