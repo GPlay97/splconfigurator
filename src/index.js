@@ -28,10 +28,10 @@ export {default as InquirerConfigurator} from "./configurators/InquirerConfigura
 
 //? if (SERIALIZERS) {
 export {default as Serializer} from "./serializers/Serializer";
-//? if (AUTO_CONFIGURATOR) {
+//? if (JSON_SERIALIZER) {
 export {default as JSONSerializer} from "./serializers/JSONSerializer";
 //? }
-//? if (INQUIRER_CONFIGURATOR) {
+//? if (TREE_STRINGIFY) {
 export {default as TreeStringify} from "./serializers/TreeStringify";
 //? } 
 //? }

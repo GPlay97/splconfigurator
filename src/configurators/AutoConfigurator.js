@@ -21,5 +21,5 @@ function trySolve(model, featurenames, index, value) {
 }
 
 export default function AutoConfigurator(model, preference) {
-    this.solve = (featurenames) => solve(model, featurenames || model.featurenames, 0, preference);
+    this.solve = (featurenames) => solve(model, featurenames || model.getFeaturenames(), 0, preference);
 }

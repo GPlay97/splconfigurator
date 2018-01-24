@@ -45,7 +45,7 @@ function deserializeFeature(json, model, parent, childType) {
     }
     if (json.children) {
         json.children.forEach(cg => {
-            cg.features.forEach(f => model.addFeature(json.name, f.name, cg.type));
+            cg.features.forEach(f => deserializeFeature(f, model, json.name, cg.type));
         });
     }
     return model;
@@ -58,7 +58,7 @@ function serializeConfiguration(feature) {
 function serializeConfigurationR(feature, currentConfig) {
     currentConfig = currentConfig || {};
     currentConfig[feature.name] = feature.selection;
-    feature.children.forEach(cg => cg.features.forEach(f => serializeConfiguration(f, currentConfig)));
+    feature.children.forEach(cg => cg.features.forEach(f => serializeConfigurationR(f, currentConfig)));
     return currentConfig;
 }
 

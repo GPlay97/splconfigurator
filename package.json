@@ -1,6 +1,6 @@
 {
   "name": "splconfigurator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "target/splconfigurator.cjs.js",
   "module": "target/splconfigurator.es.js",
   "jsnext:main": "target/splconfigurator.es.js",
@@ -14,17 +14,18 @@
   "license": "MIT",
   "dependencies": {
     "inquirer": "5.0.1",
-    "inquirer-autocomplete-prompt": "0.12.1"
+    "inquirer-autocomplete-prompt": "0.12.1",
+    "inquirer-path": "1.0.0-beta5"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-preset-env": "1.6.1",
     "babel-tape-runner": "2.0.1",
     "eslint": "4.16.0",
-    "inquirer-path": "1.0.0-beta5",
     "istanbul": "1.1.0-alpha.1",
-    "rollup": "0.54.1",
-    "sinon": "4.1.6",
+    "rollup": "0.55.0",
+    "rollup-plugin-spl": "0.0.3",
+    "sinon": "4.2.1",
     "tape": "4.8.0"
   },
   "directories": {
