@@ -1,6 +1,6 @@
 import Serializer from "./Serializer";
 
-function serializeModel(feature, options) {
+function serializeModel(feature) {
     return this.printTree("", "")(feature, 0, "root", false);
 }
 

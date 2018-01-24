@@ -55,6 +55,7 @@ if (process.mainModule === module) {
         cliConfigure(process.argv[3], process.argv[4]);
         break;
     default:
+        // eslint-disable-next-line no-console
         console.log("Known operations: build, configure");
     }
 }

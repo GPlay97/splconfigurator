@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import InquirerBuilder from "../builders/InquirerBuilder";
 import {
     readFileSync

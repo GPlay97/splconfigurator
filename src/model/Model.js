@@ -198,7 +198,7 @@ export default function Model(rootName) {
                 throw e;
             }
         }
-    }
+    };
 
     this.serializeModel = function (serializer, options) {
         return serializer.serializeModel(root, options);

@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import Configurator from "./Configurator";
 import inquirer from "inquirer";
 import TreeStringify from "../serializers/TreeStringify";

@@ -1,4 +1,3 @@
-import FeatureSelectionStack from "../entities/FeatureSelectionStack";
 //? if (FILE_SYSTEM) {
 import fs from "fs";
 import inquirer from "inquirer";
@@ -101,10 +100,11 @@ export default function Configurator(model, featurenames, getConfiguration, inva
         };
     }
 
-    function findNext(index, resolve, reject) {
+    function findNext(index) {
         var current = index,
             first = true,
             last = (index + 1) % featurenames.length;
+        //eslint-disable-next-line no-constant-condition
         while (true) {
             current = (current + 1) % featurenames.length;
             if (!first && current === last) {

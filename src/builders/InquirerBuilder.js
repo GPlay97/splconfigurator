@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import inquirer from "inquirer";
 import inquirer_autocomplete_prompt from "inquirer-autocomplete-prompt";
 import Model from "../model/Model";
