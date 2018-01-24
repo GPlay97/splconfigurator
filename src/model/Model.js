@@ -141,11 +141,11 @@ export default function Model(rootName) {
     };
 
     this.selectFeaturePositive = function (featurename) {
-        return selectFeature(featurename, true);
+        return this.selectFeature(featurename, true);
     };
 
     this.selectFeatureNegative = function (featurename) {
-        return selectFeature(featurename, false);
+        return this.selectFeature(featurename, false);
     };
 
     this.selectionOf = function (featurename) {
@@ -156,7 +156,15 @@ export default function Model(rootName) {
         return feature.selection;
     };
 
-    function selectFeature(featurename, type) {
+    this.startSelection = function () {
+        if (!selectionStarted) {
+            selectionStarted = true;
+            this.selectFeature(root.name, "root feature has to be selected");
+        }
+    };
+
+    this.selectFeature = function (featurename, type, reason) {
+        this.startSelection();
         var feature = nameMap[featurename];
         if (!feature) {
             throw "unable to select feature: unknown feature " + featurename;
@@ -164,9 +172,9 @@ export default function Model(rootName) {
         try {
             var result;
             if (type)
-                result = feature.selectPositive("user selected");
+                result = feature.selectPositive(reason || "user selected");
             else
-                result = feature.selectNegative("user selected");
+                result = feature.selectNegative(reason || "user selected");
             changes.push(result);
             //? if(RETURN_INNERTS) {
             return result;

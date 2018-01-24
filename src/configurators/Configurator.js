@@ -46,6 +46,11 @@ export default function Configurator(model, featurenames, getConfiguration, inva
     };
 
     this.next = function (index, resolve, reject) {
+        try {
+            model.startSelection();
+        } catch (e) {
+            return false;
+        }
         if (!resolve) {
             return new Promise((rs, rj) => this.next(index, rs, rj));
         }
