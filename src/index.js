@@ -34,6 +34,9 @@ export {default as JSONSerializer} from "./serializers/JSONSerializer";
 //? if (TREE_STRINGIFY) {
 export {default as TreeStringify} from "./serializers/TreeStringify";
 //? } 
+//? if (GRAPHVIZ_SERIALIZER) {
+export {default as GraphvizSerializer} from "./serializers/GraphvizSerializer";
+//? }
 //? }
 
 //? if (BUILDERS) {
