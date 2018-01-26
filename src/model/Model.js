@@ -74,6 +74,29 @@ export default function Model(rootName) {
         //? }
     };
 
+    this.renameFeature = function (oldname, newname) {
+        var feature = nameMap[oldname];
+        if (!feature) {
+            throw "unable to rename feature: unknown feature " + oldname;
+        }
+        if (nameMap[newname]) {
+            throw "unable to rename feature: a feature with name " + newname + " already exists";
+        }
+
+        feature.name = newname;
+        delete nameMap[oldname];
+        nameMap[newname] = feature;
+
+        //? if(RETURN_INNERTS) {
+        return feature;
+        //? }
+
+        //? if(RETURN_SELF) {
+        // eslint-disable-next-line no-unreachable
+        return this;
+        //? }
+    };
+
     this.addCrossTreeConstraint = function (type, features) {
         switch (type) {
             case "exclude":
