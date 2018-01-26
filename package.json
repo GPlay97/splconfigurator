@@ -18,14 +18,14 @@
     "inquirer-path": "1.0.0-beta5"
   },
   "devDependencies": {
-    "ava": "0.24.0",
+    "ava": "0.25.0",
     "babel-cli": "6.26.0",
     "babel-preset-env": "1.6.1",
     "eslint": "4.16.0",
     "nyc": "11.4.1",
-    "rollup": "0.55.0",
+    "rollup": "0.55.1",
     "rollup-plugin-spl": "0.0.3",
-    "sinon": "4.2.1"
+    "sinon": "4.2.2"
   },
   "directories": {
     "test": "test"
