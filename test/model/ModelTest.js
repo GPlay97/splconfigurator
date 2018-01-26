@@ -65,3 +65,31 @@ ava("renaming a feature keep the structure", test => {
     test.is(require.features[1], feature);
     test.is(feature.crossTreeConstraints[0], require);
 });
+
+ava("removing the root feature is not possible", test => {
+    var uut = new Model("core");
+    var feature = uut.addFeature("core", "child", "optional");
+
+    test.truthy(feature);
+    test.is(feature.name, "child");
+    test.true(uut.features.indexOf(feature) >= 0);
+    test.is(uut.nameMap.child, feature);
+    test.throws(() => uut.removeFeature("core"));
+});
+
+ava("removing non-root feature is possible", test => {
+    var uut = new Model("core");
+    var feature = uut.addFeature("core", "child", "optional");
+    var child = uut.addFeature("child", "child2", "optional");
+
+    test.truthy(feature);
+    test.truthy(child);
+    test.is(feature.name, "child");
+    test.true(uut.features.indexOf(feature) >= 0);
+    test.true(uut.features.indexOf(child) >= 0);
+    test.is(uut.nameMap.child, feature);
+    uut.removeFeature("child");
+    test.true(uut.features.indexOf(feature) >= 0);
+    console.log(uut.features.map(f=>f.name));
+    test.true(uut.features.indexOf(child) === -1);
+});

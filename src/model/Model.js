@@ -97,6 +97,34 @@ export default function Model(rootName) {
         //? }
     };
 
+    this.removeFeature = function(featureName) {
+        if (selectionStarted) {
+            throw "modifications after starting the feature selection are not allowed";
+        }
+
+        var feature = nameMap[featureName];
+
+        // validate first
+        if(!feature) throw "unable to delete feature: unknown feature " + featureName;
+        if(feature === root) throw "unable to delete root feature " + featureName;
+
+        // remove feature and any may existing references
+        delete nameMap[featureName];
+        if(typeof feature.childGroup != null) {
+            feature.childGroup.features = feature.childGroup.features.filter(groupFeature => groupFeature !== feature);
+        }
+        features = features.filter(featureEl => featureEl !== feature);
+
+        //? if(RETURN_INNERTS) {
+        return feature;
+        //? }
+
+        //? if(RETURN_SELF) {
+        // eslint-disable-next-line no-unreachable
+        return this;
+        //? }
+    };
+
     this.addCrossTreeConstraint = function (type, features) {
         switch (type) {
             case "exclude":
