@@ -1,6 +1,5 @@
 import ava from "ava";
 import Model from "../../src/model/Model";
-import TreeStringify from "../../src/serializers/TreeStringify";
 
 ava("new model creates and registers root feature", test => {
     var uut = new Model("core");
