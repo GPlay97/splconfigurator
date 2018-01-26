@@ -13,5 +13,5 @@ install:
 - npm install
 - npm install -g codecov
 script:
-- if [ "$TEST_SUITE" == "test" ]; then ISTANBUL_EXTRA="--reporter lcovonly" npm run coverage && codecov; fi
+- if [ "$TEST_SUITE" == "test" ]; then npm run coverage && codecov; fi
 - if [ "$TEST_SUITE" == "checkstyle" ]; then npm run checkstyle; fi

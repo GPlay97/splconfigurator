@@ -1,4 +1,5 @@
 import Serializer from "./Serializer";
+import flatMap from "../util/flatMap";
 
 var arrowStyle = {
     "exclude": 'style="dashed";arrowtail="normal";dir="both"',
@@ -40,7 +41,7 @@ function serializeFeature(feature, colors) {
     edges += feature.crossTreeConstraints.filter(ctc => ctc.features[0] === feature)
         .map(ctc => ctc.features[0].name + "->" + ctc.features[1].name + "[label=\"<<" + ctc.type + ">>\";" + arrowStyle[ctc.type] + "]").join("\r\n");
 
-    var children = feature.children.flatMap(cg => cg.features.map(f => serializeFeature(f, colors).concat(feature.name + "->" + f.name + "[" + arrowStyle[cg.type] + "]")));
+    var children = flatMap(cg => cg.features.map(f => serializeFeature(f, colors).concat(feature.name + "->" + f.name + "[" + arrowStyle[cg.type] + "]")), feature.children);
     children.forEach(ce => {
         if (ce[0].length)
             nodes += "\r\n" + ce[0];

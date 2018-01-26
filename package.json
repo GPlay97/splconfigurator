@@ -6,8 +6,8 @@
   "jsnext:main": "target/splconfigurator.es.js",
   "scripts": {
     "prepare": "rollup -c",
-    "test": "babel-tape-runner 'test/**/*Test.js'",
-    "coverage": "babel-node -- ./node_modules/istanbul/lib/cli cover --include-all-sources true -x \"target/*\" -x \"src/index.js\" -x \"rollup.config.js\" node_modules/tape/bin/tape './test/**/*Test.js' ${ISTANBUL_EXTRA}",
+    "test": "ava 'test/**/*Test.js'",
+    "coverage": "nyc ava 'test/**/*Test.js' ${AVA_EXTRA} &&  nyc report --reporter=lcov",
     "checkstyle": "eslint 'src/**/*.js' 'test/**/*.js'"
   },
   "author": "125m125",
@@ -18,15 +18,14 @@
     "inquirer-path": "1.0.0-beta5"
   },
   "devDependencies": {
+    "ava": "0.24.0",
     "babel-cli": "6.26.0",
     "babel-preset-env": "1.6.1",
-    "babel-tape-runner": "2.0.1",
     "eslint": "4.16.0",
-    "istanbul": "1.1.0-alpha.1",
+    "nyc": "11.4.1",
     "rollup": "0.55.0",
     "rollup-plugin-spl": "0.0.3",
-    "sinon": "4.2.1",
-    "tape": "4.8.0"
+    "sinon": "4.2.1"
   },
   "directories": {
     "test": "test"
@@ -43,5 +42,16 @@
     "url": "https://github.com/125m125/splconfigurator/issues"
   },
   "homepage": "https://github.com/125m125/splconfigurator#readme",
-  "description": ""
+  "description": "",
+  "ava": {
+    "require": "babel-register",
+    "babel": "inherit"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": "src/index.js"
+  }
 }

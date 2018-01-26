@@ -1,4 +1,4 @@
-import tape from "tape";
+import ava from "ava";
 import Model from "../../src/model/Model";
 import AutoConfigurator from "../../src/configurators/AutoConfigurator";
 import {
@@ -13,102 +13,94 @@ import trap from "../resources/trap.json";
 import trapSolution from "../resources/trapSolution.json";
 import impossible from "../resources/impossible.json";
 
-tape("AutoConfigurator selects root positive with positive preference", test => {
+ava("AutoConfigurator selects root positive with positive preference", test => {
     var model = new Model("core");
     var uut = new AutoConfigurator(model, true);
 
     var result = uut.solve();
 
-    test.ok(result);
-    test.equals(model.selectionOf("core"), true, "root should be selected positive");
-    test.end();
+    test.true(result);
+    test.is(model.selectionOf("core"), true, "root should be selected positive");
 });
 
-tape("AutoConfigurator selects root positive with negative preference", test => {
+ava("AutoConfigurator selects root positive with negative preference", test => {
     var model = new Model("core");
     var uut = new AutoConfigurator(model, false);
 
     var result = uut.solve();
 
-    test.ok(result);
-    test.equals(model.selectionOf("core"), true, "root should be selected positive");
-    test.end();
+    test.true(result);
+    test.is(model.selectionOf("core"), true, "root should be selected positive");
 });
 
-tape("AutoConfigurator solves complex1 positive", test => {
+ava("AutoConfigurator solves complex1 positive", test => {
     var model = loadModel(complex1);
     var uut = new AutoConfigurator(model, true);
 
     var result = uut.solve();
 
-    test.ok(result);
-    test.deepEquals(getConfigFromModel(model), complex1Positive, "selections should be equivalent");
-    test.end();
+    test.true(result);
+    test.deepEqual(getConfigFromModel(model), complex1Positive, "selections should be equivalent");
 });
 
-tape("AutoConfigurator solves complex1 negative", test => {
+ava("AutoConfigurator solves complex1 negative", test => {
     var model = loadModel(complex1);
     var uut = new AutoConfigurator(model, false);
 
     var result = uut.solve();
 
-    test.ok(result);
-    test.deepEquals(getConfigFromModel(model), complex1Negative, "selections should be equivalent");
-    test.end();
+    test.true(result);
+    test.deepEqual(getConfigFromModel(model), complex1Negative, "selections should be equivalent");
 });
 
-tape("AutoConfigurator solves trap positive", test => {
+ava("AutoConfigurator solves trap positive", test => {
     var model = loadModel(trap);
     var uut = new AutoConfigurator(model, true);
 
     var result = uut.solve();
 
-    test.ok(result);
-    test.deepEquals(getConfigFromModel(model), trapSolution, "selections should be equivalent");
-    test.end();
+    test.true(result);
+    test.deepEqual(getConfigFromModel(model), trapSolution, "selections should be equivalent");
 });
 
-tape("AutoConfigurator solves trap negative", test => {
+ava("AutoConfigurator solves trap negative", test => {
     var model = loadModel(trap);
     var uut = new AutoConfigurator(model, false);
 
     var result = uut.solve();
 
-    test.ok(result);
-    test.deepEquals(getConfigFromModel(model), trapSolution, "selections should be equivalent");
-    test.end();
+    test.true(result);
+    test.deepEqual(getConfigFromModel(model), trapSolution, "selections should be equivalent");
 });
 
-tape("AutoConfigurator fails impossible positive", test => {
+ava("AutoConfigurator fails impossible positive", test => {
     var model = loadModel(impossible);
     var uut = new AutoConfigurator(model, true);
 
     var result = uut.solve();
 
-    test.notok(result);
-    test.equals(model.selectionOf("impossible"), undefined, "root should not be selected");
-    test.end();
+    test.false(result);
+    test.is(model.selectionOf("impossible"), undefined, "root should not be selected");
 });
 
-tape("AutoConfigurator fails impossible negative", test => {
+ava("AutoConfigurator fails impossible negative", test => {
     var model = loadModel(impossible);
     var uut = new AutoConfigurator(model, false);
 
     var result = uut.solve();
 
-    test.notok(result);
-    test.equals(model.selectionOf("impossible"), undefined, "root should not be selected");
-    test.end();
+    test.false(result);
+    test.is(model.selectionOf("impossible"), undefined, "root should not be selected");
 });
 
-tape("AutoConfigurator respects featurelist", test => {
+ava("AutoConfigurator respects featurelist", test => {
     var model = loadModel(complex1);
     var uut = new AutoConfigurator(model, true);
 
     var result = uut.solve(["optional2", ]);
 
-    test.ok(result);
-    test.deepEquals(getConfigFromModel(model), {
+    test.true(result);
+    test.deepEqual(getConfigFromModel(model), {
         core: true,
         exclusive1: undefined,
         exclusive2: undefined,
@@ -126,5 +118,4 @@ tape("AutoConfigurator respects featurelist", test => {
         or2: undefined,
         or3: undefined,
     }, "selections should be equivalent");
-    test.end();
 });

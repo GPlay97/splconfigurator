@@ -1,23 +1,21 @@
-import tape from "tape";
+import ava from "ava";
 import Feature from "../../src/entities/Feature";
 import FeatureError from "../../src/entities/FeatureError";
 
-tape("selectPositive positively selects feature itself", function (test) {
+ava("selectPositive positively selects feature itself", function (test) {
     var uut = new Feature("test");
 
     var result = uut.selectPositive();
 
-    test.isNot(result instanceof FeatureError);
-    test.equals(uut.selection, true);
-    test.end();
+    test.not(result instanceof FeatureError);
+    test.is(uut.selection, true);
 });
 
-tape("selectNegative negatively selects feature itself", function (test) {
+ava("selectNegative negatively selects feature itself", function (test) {
     var uut = new Feature("test");
 
     var result = uut.selectNegative();
 
-    test.isNot(result instanceof FeatureError);
-    test.equals(uut.selection, false);
-    test.end();
+    test.not(result instanceof FeatureError);
+    test.is(uut.selection, false);
 });

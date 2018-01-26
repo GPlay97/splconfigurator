@@ -1,4 +1,4 @@
-import tape from "tape";
+import ava from "ava";
 import sinon from "sinon";
 import ExclusiveChildGroup from "../../../src/entities/childGroups/ExclusiveChildGroup";
 import {
@@ -6,7 +6,7 @@ import {
     stubFeature
 } from "../../testUtil/stubFeature";
 
-tape("selects last if parent was selected", test => {
+ava("selects last if parent was selected", test => {
     var uut = new ExclusiveChildGroup();
     fillChildGroup(3, uut);
     sinon.stub(uut, "selectLast");
@@ -15,13 +15,12 @@ tape("selects last if parent was selected", test => {
 
     uut.onParentPositiveSelection();
 
-    test.ok(uut.selectLast.calledOnce);
-    test.ok(uut.selectAllPositive.notCalled);
-    test.ok(uut.selectAllNegative.notCalled);
-    test.end();
+    test.true(uut.selectLast.calledOnce);
+    test.true(uut.selectAllPositive.notCalled);
+    test.true(uut.selectAllNegative.notCalled);
 });
 
-tape("selects others negative if feature was selected", test => {
+ava("selects others negative if feature was selected", test => {
     var uut = new ExclusiveChildGroup();
     fillChildGroup(3, uut);
     sinon.stub(uut, "selectLast");
@@ -30,13 +29,12 @@ tape("selects others negative if feature was selected", test => {
 
     uut.onPositiveSelection();
 
-    test.ok(uut.selectLast.notCalled);
-    test.ok(uut.selectAllPositive.notCalled);
-    test.ok(uut.selectAllNegative.calledOnce);
-    test.end();
+    test.true(uut.selectLast.notCalled);
+    test.true(uut.selectAllPositive.notCalled);
+    test.true(uut.selectAllNegative.calledOnce);
 });
 
-tape("selects parent negative if last feature was selected negative", test => {
+ava("selects parent negative if last feature was selected negative", test => {
     var parent = stubFeature();
 
     var uut = new ExclusiveChildGroup(parent);
@@ -51,14 +49,13 @@ tape("selects parent negative if last feature was selected negative", test => {
 
     uut.onNegativeSelection();
 
-    test.ok(uut.selectLast.notCalled);
-    test.ok(uut.selectAllPositive.notCalled);
-    test.ok(uut.selectAllNegative.notCalled);
-    test.ok(parent.selectNegative.calledOnce);
-    test.end();
+    test.true(uut.selectLast.notCalled);
+    test.true(uut.selectAllPositive.notCalled);
+    test.true(uut.selectAllNegative.notCalled);
+    test.true(parent.selectNegative.calledOnce);
 });
 
-tape("selects last feature positive if feature selected negative and parent selected positive", test => {
+ava("selects last feature positive if feature selected negative and parent selected positive", test => {
     var parent = stubFeature(undefined, true);
 
     var uut = new ExclusiveChildGroup(parent);
@@ -73,14 +70,13 @@ tape("selects last feature positive if feature selected negative and parent sele
 
     uut.onNegativeSelection();
 
-    test.ok(uut.selectLast.calledOnce);
-    test.ok(uut.selectAllPositive.notCalled);
-    test.ok(uut.selectAllNegative.notCalled);
-    test.ok(parent.selectNegative.notCalled);
-    test.end();
+    test.true(uut.selectLast.calledOnce);
+    test.true(uut.selectAllPositive.notCalled);
+    test.true(uut.selectAllNegative.notCalled);
+    test.true(parent.selectNegative.notCalled);
 });
 
-tape("does nothing if not last feature selected negative and parent not selected", test => {
+ava("does nothing if not last feature selected negative and parent not selected", test => {
     var parent = stubFeature();
 
     var uut = new ExclusiveChildGroup(parent);
@@ -95,9 +91,8 @@ tape("does nothing if not last feature selected negative and parent not selected
 
     uut.onNegativeSelection();
 
-    test.ok(uut.selectLast.notCalled);
-    test.ok(uut.selectAllPositive.notCalled);
-    test.ok(uut.selectAllNegative.notCalled);
-    test.ok(parent.selectNegative.notCalled);
-    test.end();
+    test.true(uut.selectLast.notCalled);
+    test.true(uut.selectAllPositive.notCalled);
+    test.true(uut.selectAllNegative.notCalled);
+    test.true(parent.selectNegative.notCalled);
 });
